@@ -1,0 +1,11 @@
+sudo systemctl disable --now bluetooth.service       # if you don't use BT daily
+sudo systemctl disable --now cups.service            # if you don't print
+sudo systemctl disable --now cups-browsed.service
+sudo systemctl disable --now ModemManager.service    # if no WWAN/cellular
+sudo systemctl disable --now avahi-daemon.service    # mDNS, rarely needed
+sudo systemctl disable --now colord.service          # color profile mgmt
+
+# User services (in DE):
+systemctl --user disable --now gvfs-gphoto2-volume-monitor.service  # cameras
+systemctl --user disable --now gvfs-mtp-volume-monitor.service      # MTP/phones
+systemctl --user disable --now obex.service  						# BT file transfer

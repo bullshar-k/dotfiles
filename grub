@@ -1,0 +1,9 @@
+# run 'update-grub' afterwards to update /boot/grub/grub.cfg.
+#   info -f grub -n 'Simple configuration'
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR=`( . /etc/os-release && echo ${NAME} )`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_pstate=active amd_prefcore=enable pcie_aspm.policy=powersupersave pcie_aspm=force"
+GRUB_CMDLINE_LINUX=""
+
