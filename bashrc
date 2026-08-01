@@ -12,7 +12,11 @@ CYAN='\e[36m'
 MAGENTA='\e[35m'
 
 header() {
-    for ((i=0; i < width - ${#title} - 4; i++)); do printf '─'; done
+    local title="$1" width pad
+    width=51
+    pad=$(( width - ${#title} - 6 ))
+    printf "${CYAN}┌──${BOLD} %s ${RESET}${CYAN}" "$title"
+    for ((i=0; i < pad; i++)); do printf '─'; done
     printf "┐${RESET}\n"
 }
 
