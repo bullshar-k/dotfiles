@@ -257,6 +257,12 @@ hl.bind("ALT + A", hl.dsp.focus({ direction = "left" }))
 hl.bind("ALT + S", hl.dsp.focus({ direction = "down" }))
 hl.bind("ALT + D", hl.dsp.focus({ direction = "right" }))
 
+-- Move the focused window with ALT + arrow keys
+hl.bind("ALT + left",  hl.dsp.window.move({ direction = "left" }))
+hl.bind("ALT + right", hl.dsp.window.move({ direction = "right" }))
+hl.bind("ALT + up",    hl.dsp.window.move({ direction = "up" }))
+hl.bind("ALT + down",  hl.dsp.window.move({ direction = "down" }))
+
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
