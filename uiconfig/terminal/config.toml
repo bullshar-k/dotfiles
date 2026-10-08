@@ -1,4 +1,10 @@
 theme = "catppuccin_frappe"
+
+# ─── Editor ─────────────────────────────────────────────────────────────────
+[editor]
+clipboard-provider = "wayland"     # use wl-clipboard for clipboard I/O
+default-yank-register = "+"        # make y/Y/p/P/t use the system clipboard register
+
 # ─── Normal mode ────────────────────────────────────────────────────────────
 [keys.normal]
 
@@ -16,8 +22,9 @@ V = "select_mode" # enter select/extend mode ("v" was repurposed)
 # Editing
 o = "open_below"
 O = "open_above"
-x = "extend_line_below" # select current line (repeat to extend down)
+x = "extend_line_below"   # select current line (repeat to extend down)
 J = "join_selections"
+t = "delete_selection"    # t: delete current selection (yanks)
 ">" = "indent"
 "<" = "unindent"
 C-z = "undo"
@@ -39,8 +46,9 @@ X = ["extend_line_below", "delete_selection"] # Shift+x: delete current line (ya
 "S-e" = "extend_to_line_end"   # Shift+e: extend selection to end of line
 "S-a" = "move_prev_word_start" # Shift+a: jump left one word
 "S-d" = "move_next_word_start" # Shift+d: jump right one word
-"C-S-c" = "yank"               # Ctrl+Shift+c: copy selection
-"C-S-v" = "paste_after"        # Ctrl+Shift+v: paste after cursor
+Y = "yank"                     # Shift+y: copy selection to system clipboard
+"C-S-c" = "yank"               # Ctrl+Shift+c: copy (kitty intercepts this key, use Y instead)
+"C-S-v" = "paste_after"        # Ctrl+Shift+v: paste (kitty handles this key)
 
 # ─── Goto mode (g prefix) ───────────────────────────────────────────────────
 [keys.normal.g]
@@ -68,3 +76,5 @@ d = "extend_char_right"
 "S-d" = "extend_next_word_start" # Shift+d: extend to next word
 "S-q" = "extend_to_line_start"   # Shift+q: extend selection to start of line
 "S-e" = "extend_to_line_end"     # Shift+e: extend selection to end of line
+t = "delete_selection"           # t: delete current selection (yanks to clipboard)
+Y = "yank"                       # Shift+y: copy selection to system clipboard
