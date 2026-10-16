@@ -1,0 +1,265 @@
+/* ─── Noctalia-inspired Waybar stylesheet ─── */
+/* GruvboxAlt dark colors, floating bar with 12px radius */
+
+* {
+    all: initial;
+    font-family:
+        "JetBrainsMono Nerd Font", "JetBrains Mono", "Font Awesome 6 Free",
+        monospace;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* ─── Main Bar ─── */
+#waybar {
+    background-color: rgba(29, 32, 33, 0.85);
+    color: #ebdbb2;
+    border-radius: 8px;
+    padding: 4px 8px;
+}
+
+/* ─── Module Sections ─── */
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 0 4px;
+}
+
+/* ─── Individual Modules ─── */
+#image,
+#workspaces,
+#window,
+#cpu,
+#temperature,
+#memory,
+#disk,
+#network,
+#tray,
+#custom-notifications,
+#pulseaudio,
+#clock,
+#custom-power,
+#custom-power#portrait {
+    padding: 4px 10px;
+    margin: 2px 3px;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+/* ─── Image (logo) ─── */
+#image {
+    padding: 4px 8px;
+    margin: 2px 3px;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+/* ─── Workspaces (hyprland/workspaces) ─── */
+#workspaces,
+#workspaces#portrait {
+    background-color: transparent;
+    padding: 2px 6px;
+}
+
+#workspaces button,
+#workspaces#portrait button {
+    padding: 2px 7px;
+    margin: 0 2px;
+    color: #665c54;
+    background-color: transparent;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Occupied workspace */
+#workspaces button.occupied,
+#workspaces#portrait button.occupied {
+    color: #d79921;
+}
+
+/* Empty workspace */
+#workspaces button.empty,
+#workspaces#portrait button.empty {
+    color: #665c54;
+}
+
+/* Focused workspace */
+#workspaces button.focused,
+#workspaces button.active,
+#workspaces#portrait button.focused,
+#workspaces#portrait button.active {
+    color: #282828;
+    background-color: #b8bb26;
+    font-weight: bold;
+}
+
+/* Urgent workspace */
+#workspaces button.urgent,
+#workspaces#portrait button.urgent {
+    color: #cc241d;
+    background-color: rgba(204, 36, 29, 0.2);
+}
+
+/* Hover effect */
+#workspaces button:hover,
+#workspaces#portrait button:hover {
+    background-color: rgba(184, 187, 38, 0.3);
+    color: #ebdbb2;
+}
+
+#workspaces button.focused:hover,
+#workspaces button.active:hover,
+#workspaces#portrait button.focused:hover,
+#workspaces#portrait button.active:hover {
+    background-color: #b8bb26;
+    color: #282828;
+}
+
+#workspaces button {
+    padding: 2px 5px;
+    margin: 0 2px;
+    color: #665c54;
+    background-color: transparent;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Occupied workspace */
+#workspaces button.occupied {
+    color: #d79921;
+}
+
+/* Empty workspace */
+#workspaces button.empty {
+    color: #665c54;
+}
+
+/* Focused workspace */
+#workspaces button.focused,
+#workspaces button.active {
+    color: #282828;
+    background-color: #b8bb26;
+    font-weight: bold;
+}
+
+/* Urgent workspace */
+#workspaces button.urgent {
+    color: #cc241d;
+    background-color: rgba(204, 36, 29, 0.2);
+}
+
+/* Hover effect */
+#workspaces button:hover {
+    background-color: rgba(184, 187, 38, 0.3);
+    color: #ebdbb2;
+}
+
+#workspaces button.focused:hover,
+#workspaces button.active:hover {
+    background-color: #b8bb26;
+    color: #282828;
+}
+
+/* ─── Active Window (hyprland/window) ─── */
+#window {
+    color: #ebdbb2;
+    background-color: transparent;
+}
+
+/* ─── Center System Stats ─── */
+#cpu {
+    color: #fb4934;
+}
+
+#temperature {
+    color: #fe8019;
+}
+
+#temperature.critical {
+    color: #cc241d;
+    background-color: rgba(204, 36, 29, 0.2);
+}
+
+#memory {
+    color: #d79921;
+}
+
+#disk {
+    color: #b8bb26;
+}
+
+#network {
+    color: #8ec07c;
+}
+
+#network.disconnected {
+    color: #928374;
+}
+
+/* ─── System Tray ─── */
+#tray {
+    background-color: transparent;
+    padding: 4px 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: rgba(214, 93, 14, 0.3);
+}
+
+/* ─── Notifications ─── */
+#custom-notifications {
+    color: #689d6a;
+}
+
+#custom-notifications.has-notifications {
+    color: #fb4934;
+}
+
+/* ─── Pulseaudio ─── */
+#pulseaudio {
+    color: #83a598;
+}
+
+#pulseaudio.muted {
+    color: #928374;
+}
+
+/* ─── Clock ─── */
+#clock,
+#clock#portrait {
+    color: #ebdbb2;
+    background-color: transparent;
+    font-weight: 600;
+}
+
+/* ─── Power Button ─── */
+#custom-power,
+#custom-power#portrait {
+    color: #fb4934;
+    background-color: transparent;
+    font-size: 14px;
+    padding: 2px 12px;
+}
+
+#custom-power:hover,
+#custom-power#portrait:hover {
+    background-color: rgba(251, 73, 52, 0.15);
+}
+
+/* ─── Tooltip ─── */
+tooltip {
+    background-color: rgba(29, 32, 33, 0.95);
+    border: 1px solid rgba(80, 73, 69, 0.8);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+tooltip label {
+    color: #ebdbb2;
+    padding: 4px;
+}

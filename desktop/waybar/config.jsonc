@@ -1,0 +1,173 @@
+[
+    {
+        "layer": "top",
+        "position": "top",
+        "height": 36,
+        "margin-top": 7,
+        "margin-left": 446,
+        "margin-right": 446,
+        "spacing": 6,
+        "modules-left": [
+            "hyprland/workspaces",
+            "hyprland/window"
+        ],
+        "modules-center": [
+            "cpu",
+            "temperature",
+            "memory",
+            "disk",
+            "network"
+        ],
+        "modules-right": [
+            "tray",
+            "custom/notifications",
+            "pulseaudio",
+            "clock",
+            "custom/power"
+        ],
+        "hyprland/workspaces": {
+            "format": "{id}",
+            "on-click": "activate",
+            "sort-by-number": true
+        },
+        "hyprland/window": {
+            "format": "{title}",
+            "max-length": 50,
+            "rewrite": {
+                "(.*) \u2014 Mozilla Firefox": "\uf279 $1",
+                "(.*) - Chromium": "\uf268 $1",
+                "(.*) - Visual Studio Code": "\uf121 $1",
+                "(.*) - zed": "\uf121 $1",
+                "(.*) - Discord": "\uf392 $1",
+                "(.*) - Steam": "\uf1b6 $1"
+            }
+        },
+        "cpu": {
+            "format": "\uf4bc {usage}%",
+            "interval": 2,
+            "tooltip": true,
+            "tooltip-format": "CPU: {usage}%"
+        },
+        "temperature": {
+            "format": "\uf2c9 {temperatureC}\u00b0",
+            "interval": 2,
+            "tooltip": true,
+            "tooltip-format": "CPU Temp: {temperatureC}\u00b0C"
+        },
+        "memory": {
+            "format": "\uefcd {used:0.1f}G",
+            "interval": 2,
+            "tooltip": true,
+            "tooltip-format": "RAM: {used:0.1f}GB / {total:0.1f}GB ({percentage}%)"
+        },
+        "disk": {
+            "format": "\uf07a {used}",
+            "interval": 30,
+            "path": "/",
+            "tooltip": true,
+            "tooltip-format": "Disk: {used} / {total} ({percentage_used}%)"
+        },
+        "network": {
+            "format-wifi": "\uf07a {bandwidthDownBytes}  \uf07a {bandwidthUpBytes}",
+            "format-ethernet": "\uf07a {bandwidthDownBytes}  \uf07a {bandwidthUpBytes}",
+            "format-disconnected": "\uf1eb Offline",
+            "interval": 2,
+            "tooltip": true,
+            "tooltip-format-wifi": "WiFi: {essid} ({signalStrength}%)\nDown: {bandwidthDownBits}\nUp: {bandwidthUpBits}",
+            "tooltip-format-ethernet": "Ethernet: {ifname}\nDown: {bandwidthDownBits}\nUp: {bandwidthUpBits}"
+        },
+        "tray": {
+            "icon-size": 16,
+            "spacing": 8,
+            "show-passive-items": true
+        },
+        "custom/notifications": {
+            "format": "{}",
+            "exec": "$HOME/.config/waybar/scripts/notifications.sh",
+            "interval": 2,
+            "return-type": "json",
+            "on-click": "makoctl dismiss --all",
+            "on-click-right": "makoctl restore"
+        },
+        "pulseaudio": {
+            "format": "{icon} {volume}%",
+            "format-muted": "\uf2e2 Muted",
+            "format-icons": {
+                "default": [
+                    "\uf026",
+                    "\uf027",
+                    "\uf028"
+                ]
+            },
+            "on-click": "pavucontrol",
+            "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+            "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%",
+            "tooltip": true,
+            "tooltip-format": "{desc}"
+        },
+        "clock": {
+            "format": "{:%I:%M %p %a, %b %d}",
+            "tooltip": true,
+            "tooltip-format": "<tt>{calendar}</tt>",
+            "calendar": {
+                "mode": "month",
+                "weeks-pos": "right",
+                "on-scroll": 1,
+                "format": {
+                    "months": "<span color='#d79921'><b>{}</b></span>",
+                    "weekdays": "<span color='#d79921'><b>{}</b></span>",
+                    "today": "<span color='#b8bb26'><b>{}</b></span>"
+                }
+            }
+        },
+        "custom/power": {
+            "format": "\uf011",
+            "tooltip": "Session Menu",
+            "on-click": "python3 $HOME/.config/waybar/scripts/logout-menu.py"
+        },
+        "output": "DP-2"
+    },
+    {
+        "output": "DP-1",
+        "layer": "top",
+        "position": "top",
+        "height": 36,
+        "margin-top": 7,
+        "margin-left": 50,
+        "margin-right": 50,
+        "spacing": 6,
+        "modules-left": [
+            "hyprland/workspaces#portrait"
+        ],
+        "modules-center": [],
+        "modules-right": [
+            "clock#portrait",
+            "custom/power#portrait"
+        ],
+        "hyprland/workspaces#portrait": {
+            "format": "{id}",
+            "on-click": "activate",
+            "sort-by-number": true
+        },
+        "clock#portrait": {
+            "format": "{:%I:%M %p}",
+            "tooltip": true,
+            "tooltip-format": "<tt>{calendar}</tt>",
+            "calendar": {
+                "mode": "month",
+                "weeks-pos": "right",
+                "on-scroll": 1,
+                "format": {
+                    "months": "<span color='#d79921'><b>{}</b></span>",
+                    "weekdays": "<span color='#d79921'><b>{}</b></span>",
+                    "today": "<span color='#b8bb26'><b>{}</b></span>"
+                }
+            }
+        },
+        "custom/power#portrait": {
+            "format": "\uf011",
+            "tooltip": "Session Menu",
+            "on-click": "python3 $HOME/.config/waybar/scripts/logout-menu.py"
+        }
+    }
+]
