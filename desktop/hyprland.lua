@@ -9,19 +9,21 @@ hl.monitor({
     scale    = "auto",
 })
 
--- Samsung Odyssey G61SH primary
+-- Samsung Odyssey G61SH (DP-3) — primary, landscape
 hl.monitor({
-    output   = "DP-2",
-    mode     = "2560x1440@240",
-    position = "0x363",
+    output   = "DP-3",
+    mode     = "2560x1440@120",
+    position = "0x0",
     scale    = 1,
 })
 
--- MSI G274QPX — secondary, portrait rotated 90 right
+-- MSI G274QPX (DP-2) — secondary, portrait, rotated 90° to the right.
+-- Both panels are 27"; the portrait screen is vertically centred against the
+-- Samsung, i.e. y = (1440 - 2560) / 2 = -560 (negative y moves it up).
 hl.monitor({
-    output    = "DP-1",
-    mode      = "2560x1440@120",
-    position  = "2560x0",
+    output    = "DP-2",
+    mode      = "2560x1440@240",
+    position  = "2560x-560",
     scale     = 1,
     transform = 1,
 })
@@ -45,7 +47,7 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd(waybarCmd)
 
   -- wallpaper
-  hl.exec_cmd("swaybg -i /home/shark/pictures/wall/wall.png -m fill")
+  hl.exec_cmd("swaybg -i /home/shark/wall/wall.png -m fill")
 
   -- clipboard history (wl-cliphist)
   hl.exec_cmd("wl-paste --type text --watch cliphist store")
@@ -301,6 +303,72 @@ hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = tr
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
+
+
+-------------------------------
+---- WINDOW SNAPPING ----
+-------------------------------
+-- Snap the focused window into a fractional region of the monitor it is on.
+-- fx/fy = top-left corner, fw/fh = size, each a fraction (0..1) of the
+-- monitor's *usable* area (the monitor minus whatever waybar reserves).
+-- Windows are made floating first, since exact geometry only sticks to
+-- floating windows.
+local function snapWindow(fx, fy, fw, fh)
+    local w = hl.get_active_window()
+    if not w then return end
+
+    -- Leave fullscreen so the new geometry is actually visible.
+    if w.fullscreen ~= 0 then
+        hl.dispatch(hl.dsp.window.fullscreen({ action = "unset" }))
+    end
+
+    -- Exact move/resize only applies to floating windows.
+    if not w.floating then
+        hl.dispatch(hl.dsp.window.float({ action = "set" }))
+    end
+
+    local m = w.monitor or hl.get_active_monitor()
+    if not m then return end
+
+    -- width/height are the *untransformed* pixel size, so swap them on
+    -- 90°/270°-rotated (portrait) screens like DP-2.
+    local mw, mh = m.width, m.height
+    if m.transform % 2 == 1 then
+        mw, mh = mh, mw
+    end
+
+    local r      = m.reserved or {}
+    local rl, rt = r.left or 0, r.top or 0
+    local rr, rb = r.right or 0, r.bottom or 0
+
+    local ux, uy = m.x + rl, m.y + rt            -- usable top-left (global coords)
+    local uw, uh = mw - rl - rr, mh - rt - rb    -- usable size
+
+    local tx = math.floor(ux + fx * uw)
+    local ty = math.floor(uy + fy * uh)
+    local tw = math.floor(fw * uw)
+    local th = math.floor(fh * uh)
+
+    -- resize() takes an absolute size; move() takes a global top-left coord.
+    hl.dispatch(hl.dsp.window.resize({ x = tw, y = th, relative = false, window = w }))
+    hl.dispatch(hl.dsp.window.move({ x = tx, y = ty, relative = false, window = w }))
+end
+
+-- Your programming-course layout: browser on the left 2/3, helix in the
+-- top 2/3 of what's left, compile/run terminal in the bottom 1/3.
+hl.bind(mainMod .. " + CTRL + B", function() snapWindow(0,   0,   2/3, 1   ) end) -- browser  -> left 2/3
+hl.bind(mainMod .. " + CTRL + H", function() snapWindow(2/3, 0,   1/3, 2/3 ) end) -- helix    -> top-right 1/3 x 2/3
+hl.bind(mainMod .. " + CTRL + R", function() snapWindow(2/3, 2/3, 1/3, 1/3 ) end) -- compile  -> bottom-right 1/3 x 1/3
+
+-- Generic halves / thirds / fill (handy for other layouts).
+hl.bind(mainMod .. " + CTRL + left",   function() snapWindow(0,   0,   1/2, 1  ) end)
+hl.bind(mainMod .. " + CTRL + right",  function() snapWindow(1/2, 0,   1/2, 1  ) end)
+hl.bind(mainMod .. " + CTRL + up",     function() snapWindow(0,   0,   1,   1/2) end)
+hl.bind(mainMod .. " + CTRL + down",   function() snapWindow(0,   1/2, 1,   1/2) end)
+hl.bind(mainMod .. " + CTRL + 1",      function() snapWindow(0,   0,   1/3, 1  ) end)
+hl.bind(mainMod .. " + CTRL + 2",      function() snapWindow(1/3, 0,   1/3, 1  ) end)
+hl.bind(mainMod .. " + CTRL + 3",      function() snapWindow(2/3, 0,   1/3, 1  ) end)
+hl.bind(mainMod .. " + CTRL + RETURN", function() snapWindow(0,   0,   1,   1  ) end) -- fill usable area
 
 
 --------------------------------

@@ -4,8 +4,8 @@
 * {
     all: initial;
     font-family:
-        "JetBrainsMono Nerd Font", "JetBrains Mono", "Font Awesome 6 Free",
-        monospace;
+        "JetBrainsMono Nerd Font", "JetBrains Mono", "Font Awesome 6 Brands",
+        "Font Awesome 6 Free", monospace;
     font-size: 13px;
     font-weight: 500;
 }
