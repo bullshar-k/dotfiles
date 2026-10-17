@@ -214,7 +214,7 @@ local mainMod = "SUPER"
 
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exit())
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(browser))
