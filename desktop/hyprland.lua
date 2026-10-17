@@ -37,6 +37,7 @@ local fileManager = "dolphin"
 local menu        = "fuzzel"
 local browser     = "librewolf"
 local waybarCmd   = "waybar"
+local lockCmd     = "hyprlock"
 
 
 -------------------
@@ -218,6 +219,7 @@ hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd(lockCmd)) -- lock the screen (hyprlock)
 hl.bind(mainMod .. " + X", hl.dsp.window.close())
 
 hl.bind(mainMod .. " + Q", hl.dsp.focus({ workspace = "-1" }))
